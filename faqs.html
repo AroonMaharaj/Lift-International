@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQs — Lift International</title>
+  <meta name="description" content="Frequently asked questions about Lift International's crane rental, sales, and operator services." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: { DEFAULT: '#C62828', dark: '#B71C1C', light: '#FFEBEE' } },
+          fontFamily: { display: ['Syne', 'sans-serif'], body: ['DM Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; margin: 0; background: #fff; color: #1C1917; overflow-x: hidden; }
+    h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(20,18,16,0.55); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); box-shadow: 0 1px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    #navbar .nav-link { color: rgba(255,255,255,0.85); }
+    #navbar .nav-link:hover { color: #fff; }
+    ::-webkit-scrollbar { width:12px; }
+    ::-webkit-scrollbar-track { background:#F5F5F5; }
+    ::-webkit-scrollbar-thumb { background:#C62828; border-radius:6px; }
+    .faq-item { border-bottom: 1px solid #E7E5E4; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 500px; }
+    .faq-toggle svg { transition: transform 0.3s ease; }
+    .faq-item.open .faq-toggle svg { transform: rotate(45deg); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between" style="height:72px">
+    <a href="/" class="font-display font-extrabold text-white text-xl tracking-tight">LIFT <span class="font-semibold">INTERNATIONAL</span></a>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="/#fleet"    class="nav-link text-sm font-medium transition-colors">Fleet</a>
+      <a href="/#services" class="nav-link text-sm font-medium transition-colors">Services</a>
+      <a href="/#projects" class="nav-link text-sm font-medium transition-colors">Projects</a>
+      <a href="/#about"    class="nav-link text-sm font-medium transition-colors">About</a>
+      <a href="/#contact"  class="nav-link text-sm font-medium transition-colors">Contact</a>
+    </div>
+    <div class="hidden md:flex items-center gap-5">
+      <a href="tel:12898161956" class="nav-link flex items-center gap-1.5 text-sm font-medium transition-colors">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17v-.08Z"/></svg>
+        1-289-816-1956
+      </a>
+      <a href="/#contact" class="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200">
+        Get a Quote
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+    <button class="md:hidden text-white p-1" onclick="document.getElementById('mob-menu').classList.toggle('hidden')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mob-menu" class="hidden md:hidden px-6 pb-6 pt-4" style="background:rgba(20,18,16,0.85); backdrop-filter:blur(20px); border-top:1px solid rgba(255,255,255,0.08);">
+    <a href="/#fleet"    class="block py-3 text-white/80 font-medium border-b border-white/10 text-sm">Fleet</a>
+    <a href="/#services" class="block py-3 text-white/80 font-medium border-b border-white/10 text-sm">Services</a>
+    <a href="/#projects" class="block py-3 text-white/80 font-medium border-b border-white/10 text-sm">Projects</a>
+    <a href="/#about"    class="block py-3 text-white/80 font-medium border-b border-white/10 text-sm">About</a>
+    <a href="/#contact"  class="block py-3 text-white/80 font-medium text-sm">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<section class="pt-32 pb-16 bg-[#1C1917]">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+      <span class="w-8 h-px bg-brand"></span>Support
+    </div>
+    <h1 class="font-display font-bold text-white text-4xl md:text-5xl mb-4" style="letter-spacing:-0.02em">Frequently Asked Questions</h1>
+    <p class="text-white/60 text-lg max-w-xl">Everything you need to know about working with Lift International. Can't find what you're looking for? <a href="/#contact" class="text-brand hover:text-brand-light transition-colors">Contact us</a>.</p>
+  </div>
+</section>
+
+<!-- FAQ CONTENT -->
+<section class="py-20 bg-white">
+  <div class="max-w-3xl mx-auto px-6 lg:px-8">
+
+    <!-- Category: General -->
+    <h2 class="font-display font-bold text-[#1C1917] text-2xl mb-6">General</h2>
+    <div class="mb-12">
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">What does Lift International do?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">Lift International is a premium crane and heavy equipment company offering rentals, sales, and rent-to-own programs. We also provide certified crane operators and deliver equipment to project sites across South America, Africa, the Caribbean, and beyond.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">Where do you operate?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">We serve projects in over 15 countries, primarily across South America (Brazil, Colombia, Peru, Argentina, Chile) and Africa (Nigeria, Angola, South Africa, Ghana, Kenya). We also handle projects in the Caribbean and other regions on a case-by-case basis. Our head office is located in Burlington, Ontario, Canada.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">How long has Lift International been in business?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">With over 20 years of experience in the heavy lifting industry, we've completed more than 500 projects worldwide. Our team brings deep expertise in crane logistics, rigging, and project management across diverse environments and industries.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Rentals -->
+    <h2 class="font-display font-bold text-[#1C1917] text-2xl mb-6">Crane Rentals</h2>
+    <div class="mb-12">
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">What types of cranes do you rent?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">We offer a full range of lifting equipment including mobile cranes (5t–500t), crawler cranes (100t–3,500t), all-terrain cranes (50t–1,200t), tower cranes, telehandlers, and forklifts. If you need a specific machine, we can source it globally.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">What is the difference between bare rental and operated rental?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3"><strong>Bare rental</strong> provides the crane only — your team supplies the operator and rigging crew. <strong>Operated rental</strong> includes the crane plus one or more of our certified operators. Most international clients choose operated rental for convenience and compliance with local safety regulations.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">What rental terms are available?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">We offer flexible daily, weekly, and monthly rental terms. For long-term projects (6+ months), we provide discounted rates and can structure custom agreements. All contracts include maintenance support and 24/7 emergency assistance.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">How quickly can I get a quote?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">We aim to deliver a detailed, competitive quote within one hour during business hours (Mon–Fri 8am–5pm, Sat 8am–2pm Eastern). Simply fill out our <a href="/#contact" class="text-brand hover:text-brand-dark">quote request form</a> or call us directly.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Sales & Rent-to-Own -->
+    <h2 class="font-display font-bold text-[#1C1917] text-2xl mb-6">Sales & Rent-to-Own</h2>
+    <div class="mb-12">
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">Do you sell new and used cranes?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">Yes. We maintain an inventory of both new and certified used equipment. Every used crane comes with full documentation, maintenance records, inspection certificates, and photos. We can also source specific models globally if it's not in our current stock.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">How does Rent-to-Own work?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">Our Rent-to-Own program lets you start with a standard rental and apply a portion of each payment toward the purchase price. There's no large upfront capital requirement. At the end of the agreed term, you own the equipment outright. It's ideal for growing contractors who need equipment now but want to spread the cost over time.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">Can you arrange international delivery for purchased equipment?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">Absolutely. We handle all logistics including transport, customs documentation, and on-site delivery. Whether you're shipping to a port in Lagos or a construction site in Bogotá, we coordinate the entire process so you can focus on your project.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Operators & Safety -->
+    <h2 class="font-display font-bold text-[#1C1917] text-2xl mb-6">Operators & Safety</h2>
+    <div class="mb-12">
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">Are your operators certified?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">Yes. All Lift International operators hold valid certifications (NCCCO, CPCS, or equivalent local credentials) and undergo regular safety training. We match operators to the specific crane type and project environment to ensure maximum safety and efficiency.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">What safety standards do you follow?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">We adhere to OSHA, ANSI, ISO, and local regulatory standards for every project. All equipment undergoes regular third-party inspections, and we maintain detailed maintenance logs. Learn more on our <a href="/safety.html" class="text-brand hover:text-brand-dark">Safety Standards</a> page.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Pricing & Payment -->
+    <h2 class="font-display font-bold text-[#1C1917] text-2xl mb-6">Pricing & Payment</h2>
+    <div class="mb-4">
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">How do your prices compare to competitors?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">Our rates consistently beat bank financing and larger competitors. Because we operate with lower overhead and source equipment globally, we pass those savings on to our clients without cutting corners on quality, maintenance, or service.</p>
+        </div>
+      </div>
+      <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+        <div class="flex items-center justify-between gap-4 faq-toggle">
+          <h3 class="font-display font-semibold text-[#1C1917] text-[16px]">What payment methods do you accept?</h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5" class="flex-shrink-0"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-500 text-sm leading-relaxed pt-3">We accept wire transfers, certified checks, and major credit cards. For long-term contracts, we can arrange custom payment schedules. All pricing is provided in USD, though we can invoice in local currencies where applicable.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-brand">
+  <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+    <h2 class="font-display font-bold text-white text-3xl md:text-4xl mb-4">Still have questions?</h2>
+    <p class="text-white/75 text-lg mb-8">Our team is ready to help. Get in touch and we'll respond within the hour.</p>
+    <a href="/#contact" class="inline-flex items-center gap-2 bg-white text-brand font-bold px-9 py-4 rounded-xl hover:bg-stone-50 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 text-[15px]">
+      Contact Us
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#141210;color:#78716C;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+    <div class="lg:col-span-2">
+      <a href="/" class="font-display font-extrabold text-white text-xl tracking-tight mb-5 block">LIFT <span class="font-semibold">INTERNATIONAL</span></a>
+      <p class="text-stone-500 text-sm leading-relaxed mb-6 max-w-[260px]">Moving the world one lift at a time. Premium crane rentals, sales, and operators serving projects worldwide.</p>
+      <div class="flex gap-2.5">
+        <a href="https://instagram.com/lift.international" target="_blank" class="w-9 h-9 bg-stone-800 hover:bg-brand rounded-lg flex items-center justify-center transition-colors" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="w-9 h-9 bg-stone-800 hover:bg-brand rounded-lg flex items-center justify-center transition-colors" aria-label="LinkedIn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-stone-300 text-[11px] uppercase tracking-[0.18em] mb-5">Services</h4>
+      <ul class="space-y-3">
+        <li><a href="/#services" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Crane Rentals</a></li>
+        <li><a href="/#services" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Crane Sales</a></li>
+        <li><a href="/#services" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Rent-to-Own</a></li>
+        <li><a href="/#fleet"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Equipment Supply</a></li>
+        <li><a href="/#contact"  class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Certified Operators</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-stone-300 text-[11px] uppercase tracking-[0.18em] mb-5">Company</h4>
+      <ul class="space-y-3">
+        <li><a href="/#about"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">About Us</a></li>
+        <li><a href="/#fleet"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Our Fleet</a></li>
+        <li><a href="/#projects" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Projects</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-stone-300 text-[11px] uppercase tracking-[0.18em] mb-5">Support</h4>
+      <ul class="space-y-3">
+        <li><a href="/#contact"      class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Contact Us</a></li>
+        <li><a href="/#contact"      class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Get a Quote</a></li>
+        <li><a href="/faqs.html"     class="text-stone-500 hover:text-stone-300 text-sm transition-colors">FAQs</a></li>
+        <li><a href="/safety.html"   class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Safety Standards</a></li>
+        <li><a href="/terms.html"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(120,113,108,0.25)" class="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-stone-600 text-xs">&copy; 2026 Lift International Inc. All rights reserved.</p>
+    <div class="flex items-center gap-5">
+      <a href="/privacy.html" class="text-stone-600 hover:text-stone-400 text-xs transition-colors">Privacy Policy</a>
+      <a href="/terms.html"   class="text-stone-600 hover:text-stone-400 text-xs transition-colors">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

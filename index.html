@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lift International — Premium Crane Rental & Sales</title>
+  <meta name="description" content="Premium crane rentals, sales, and certified operators serving construction and industrial projects across South America, Africa, and beyond." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand:    { DEFAULT: '#C62828', dark: '#B71C1C', light: '#FFEBEE' },
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body:    ['DM Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; margin: 0; background: #1C1917; color: #fff; overflow-x: hidden; }
+    h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+
+    /* ── NAVBAR ── */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background 0.3s, box-shadow 0.3s, border-color 0.3s; background: transparent; border-bottom: 1px solid transparent; }
+    #navbar.scrolled { background: rgba(20,18,16,0.55); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); box-shadow: 0 1px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06); border-bottom-color: rgba(255,255,255,0.08); }
+    #navbar .nav-link { color: rgba(255,255,255,0.85); }
+    #navbar .nav-link:hover { color: #fff; }
+    #navbar #hamburger { color: #fff; }
+
+    /* ── HERO ── */
+    #hero-section { position: relative; min-height: 100svh; display: flex; flex-direction: column;
+                    align-items: flex-start; justify-content: center;
+                    padding: 100px 24px 200px; overflow: hidden; }
+    @media(min-width:768px) { #hero-section { padding: 120px 24px 160px; } }
+    #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    #hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.5) 100%); z-index: 1; }
+    @media(min-width:768px) { #hero-overlay { background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%); } }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.10s; }
+    .reveal-delay-2 { transition-delay: 0.20s; }
+    .reveal-delay-3 { transition-delay: 0.30s; }
+    .reveal-delay-4 { transition-delay: 0.40s; }
+    .reveal-delay-5 { transition-delay: 0.50s; }
+
+    /* ── FLEET CARD ── */
+    .fleet-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06); transition: transform 0.25s, box-shadow 0.25s; }
+    .fleet-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1); border-color: rgba(198,40,40,0.3); }
+    .fleet-card .card-img { aspect-ratio: 1/1; width: 100%; object-fit: cover; }
+
+    /* ── SERVICE CARD ── */
+    .service-card { transition: transform 0.25s, box-shadow 0.25s; }
+    .service-card:hover { transform: translateY(-3px); }
+
+    /* ── FILTER BUTTONS ── */
+    .filter-btn { background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.12); cursor:pointer; }
+    .filter-btn.active { background:#C62828; color:#fff; border-color:#C62828; }
+    .filter-btn:hover:not(.active) { border-color:#C62828; color:#C62828; }
+    .fleet-item.hidden { opacity:0; pointer-events:none; height:0; overflow:hidden; margin:0; padding:0; }
+
+    /* ── FORM ── */
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .form-input { width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18);
+                  border-radius:10px; padding:12px 16px; color:#fff; font-family:'DM Sans',sans-serif;
+                  font-size:14px; outline:none; transition:border-color 0.2s; }
+    .form-input::placeholder { color:rgba(255,255,255,0.38); }
+    .form-input:focus { border-color:#C62828; }
+    select.form-input option { background:#1C1917; color:#fff; }
+    .form-label { display:block; font-size:13px; font-weight:500; color:rgba(255,255,255,0.7); margin-bottom:6px; }
+
+    /* ── MOBILE CTA ── */
+    #floating-cta { display:none; }
+    @media(max-width:768px){ #floating-cta { display:flex; } }
+
+    /* ── PROGRESS ── */
+    #progress { position:fixed; top:0; left:0; height:3px; background:#C62828; z-index:200; transition:width 0.1s; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width:12px; }
+    ::-webkit-scrollbar-track { background:#141210; }
+    ::-webkit-scrollbar-thumb { background:#C62828; border-radius:6px; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider { height:1px; background:linear-gradient(to right, transparent, rgba(198,40,40,0.3) 20%, rgba(198,40,40,0.3) 80%, transparent); }
+
+    /* ── DOT TEXTURE ── */
+    .dot-bg { background-image: radial-gradient(circle, rgba(198,40,40,0.12) 1px, transparent 1px);
+              background-size: 24px 24px; }
+  </style>
+</head>
+<body>
+
+<div id="progress" style="width:0%"></div>
+
+<!-- ══════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between" style="height:72px">
+    <a href="#" class="font-display font-extrabold text-white text-xl tracking-tight" id="logo-el">LIFT <span class="font-semibold">INTERNATIONAL</span></a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#fleet"    class="nav-link text-stone-600 hover:text-brand text-sm font-medium transition-colors">Fleet</a>
+      <a href="#services" class="nav-link text-stone-600 hover:text-brand text-sm font-medium transition-colors">Services</a>
+      <a href="#projects" class="nav-link text-stone-600 hover:text-brand text-sm font-medium transition-colors">Projects</a>
+      <a href="#about"    class="nav-link text-stone-600 hover:text-brand text-sm font-medium transition-colors">About</a>
+      <a href="#contact"  class="nav-link text-stone-600 hover:text-brand text-sm font-medium transition-colors">Contact</a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-5">
+      <a href="tel:12898161956" class="nav-link flex items-center gap-1.5 text-stone-500 hover:text-brand text-sm font-medium transition-colors">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17v-.08Z"/></svg>
+        1-289-816-1956
+      </a>
+      <a href="#contact" class="bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200">
+        Get a Quote
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+
+    <button id="hamburger" class="md:hidden text-stone-700 hover:text-brand p-1 transition-colors" onclick="toggleMenu()">
+      <svg id="ham-open"  width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="ham-close" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 pt-4 shadow-xl" style="background:rgba(20,18,16,0.85); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-top:1px solid rgba(255,255,255,0.08);">
+    <div class="space-y-0.5 mb-4">
+      <a href="#fleet"    class="block py-3 text-white/80 font-medium hover:text-brand border-b border-white/10 text-sm transition-colors" onclick="toggleMenu()">Fleet</a>
+      <a href="#services" class="block py-3 text-white/80 font-medium hover:text-brand border-b border-white/10 text-sm transition-colors" onclick="toggleMenu()">Services</a>
+      <a href="#projects" class="block py-3 text-white/80 font-medium hover:text-brand border-b border-white/10 text-sm transition-colors" onclick="toggleMenu()">Projects</a>
+      <a href="#about"    class="block py-3 text-white/80 font-medium hover:text-brand border-b border-white/10 text-sm transition-colors" onclick="toggleMenu()">About</a>
+      <a href="#contact"  class="block py-3 text-white/80 font-medium hover:text-brand text-sm transition-colors" onclick="toggleMenu()">Contact</a>
+    </div>
+    <a href="#contact" onclick="toggleMenu()" class="w-full bg-brand text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 text-sm">
+      Get a Quote
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<section id="hero-section">
+    <video id="hero-video-bg" src="/hf_20260317_173930_abc4ce27-61a9-487a-8667-d97040c65927.mp4" autoplay muted loop playsinline></video>
+    <div id="hero-overlay"></div>
+
+    <div class="text-left max-w-7xl w-full mx-auto z-10 space-y-6 px-6 lg:px-8" id="hero-text" style="position:relative; z-index:2;">
+      <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse"></span>
+        Global Crane Solutions
+      </div>
+
+      <h1 class="font-display font-bold text-white leading-[1.1]" style="font-size:clamp(2.6rem,5.5vw,4.5rem)">
+        Heavy Lifts,<br><span class="text-brand">Delivered</span><br>with Precision.
+      </h1>
+
+      <p class="text-white/70 text-lg leading-relaxed max-w-[520px]">
+        Premium crane rentals, sales, and certified operators serving construction and industrial projects across South America, Africa, and beyond.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="#contact" class="bg-brand hover:bg-brand-dark text-white font-semibold px-7 py-3.5 rounded-xl flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg hover:-translate-y-px transition-all duration-200 text-[15px]">
+          Get a Free Quote
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a href="#fleet" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl border border-white/25 hover:border-white/40 flex items-center justify-center gap-2 hover:-translate-y-px transition-all duration-200 text-[15px] backdrop-blur-sm">
+          View Our Fleet
+        </a>
+      </div>
+
+      <div class="hidden md:flex flex-wrap gap-5">
+        <div class="flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <span class="font-semibold text-white text-sm">500+</span>
+          <span class="text-white/50 text-sm">Projects Completed</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <span class="font-semibold text-white text-sm">15+</span>
+          <span class="text-white/50 text-sm">Countries Served</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <span class="font-semibold text-white text-sm">&lt;1hr</span>
+          <span class="text-white/50 text-sm">Quote Turnaround</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRUST BAR — overlaps hero video -->
+    <div style="position:absolute; bottom:0; left:0; right:0; z-index:2;">
+      <div class="max-w-6xl mx-auto px-6 py-6 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+        <div class="reveal" data-count="20">
+          <div class="font-display font-extrabold text-brand mb-1 text-3xl md:text-[2.8rem] leading-none">
+            <span class="count-num">0</span><span>+</span>
+          </div>
+          <div class="text-white/60 text-xs md:text-sm font-medium uppercase tracking-wider">Years Operating</div>
+        </div>
+        <div class="reveal reveal-delay-1" data-count="15">
+          <div class="font-display font-extrabold text-brand mb-1 text-3xl md:text-[2.8rem] leading-none">
+            <span class="count-num">0</span><span>+</span>
+          </div>
+          <div class="text-white/60 text-xs md:text-sm font-medium uppercase tracking-wider">Countries Served</div>
+        </div>
+        <div class="reveal reveal-delay-2" data-count="500">
+          <div class="font-display font-extrabold text-brand mb-1 text-3xl md:text-[2.8rem] leading-none">
+            <span class="count-num">0</span><span>+</span>
+          </div>
+          <div class="text-white/60 text-xs md:text-sm font-medium uppercase tracking-wider">Projects Completed</div>
+        </div>
+        <div class="reveal reveal-delay-3" data-count="50">
+          <div class="font-display font-extrabold text-brand mb-1 text-3xl md:text-[2.8rem] leading-none">
+            <span class="count-num">0</span><span>+</span>
+          </div>
+          <div class="text-white/60 text-xs md:text-sm font-medium uppercase tracking-wider">Fleet Units</div>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     SERVICES
+══════════════════════════════════════════════════ -->
+<section id="services" class="py-24 bg-[#1C1917] relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 40% at 50% 0%, rgba(198,40,40,0.08) 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+        <span class="w-8 h-px bg-brand"></span>Our Services<span class="w-8 h-px bg-brand"></span>
+      </div>
+      <h2 class="font-display font-bold text-white text-4xl md:text-5xl mb-4" style="letter-spacing:-0.02em">End-to-end Lifting Solutions</h2>
+      <p class="text-stone-400 text-lg leading-relaxed">From short-term bare rental to full operator-supplied contracts and rent-to-own programs.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Rental -->
+      <div class="service-card reveal reveal-delay-1 rounded-2xl p-8 hover:border-brand/30" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-12 h-12 rounded-xl bg-brand/20 flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8Z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-white text-xl mb-3">Crane Rental</h3>
+        <p class="text-white/60 leading-relaxed mb-5 text-sm">Bare rental and operated crane hire. Daily, weekly, or monthly terms. All crane types from 5t mobile cranes to 500t+ crawler cranes.</p>
+        <ul class="space-y-2 mb-7">
+          <li class="flex items-center gap-2 text-sm text-white/70"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Operated &amp; bare hire</li>
+          <li class="flex items-center gap-2 text-sm text-white/70"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Flexible contract terms</li>
+          <li class="flex items-center gap-2 text-sm text-white/70"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Certified operators available</li>
+        </ul>
+        <a href="#contact" class="inline-flex items-center gap-2 text-brand font-semibold text-sm hover:text-brand-light transition-colors">
+          Get a Rental Quote <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </div>
+
+      <!-- Sales (featured) -->
+      <div class="service-card reveal reveal-delay-2 rounded-2xl p-8 relative overflow-hidden" style="background:rgba(198,40,40,0.12); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(198,40,40,0.25); box-shadow:0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="absolute top-0 right-0 w-40 h-40 rounded-full opacity-15 pointer-events-none" style="background:radial-gradient(circle,#C62828,transparent);transform:translate(40px,-40px)"></div>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-3 bg-brand/20">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="inline-block text-xs font-bold uppercase tracking-widest text-brand border border-brand/30 px-2.5 py-1 rounded-full mb-3 bg-brand/10">Most Popular</div>
+        <h3 class="font-display font-bold text-white text-xl mb-3">Equipment Sales</h3>
+        <p class="text-white/70 leading-relaxed mb-5 text-sm">New and used crane sales with competitive pricing. Full documentation, maintenance records, and international shipping arranged.</p>
+        <ul class="space-y-2 mb-7">
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>New &amp; used inventory</li>
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Full spec sheets &amp; photos</li>
+          <li class="flex items-center gap-2 text-sm text-white/80"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>International delivery</li>
+        </ul>
+        <a href="#fleet" class="inline-flex items-center gap-2 text-brand font-semibold text-sm hover:text-brand-light transition-colors">
+          View Inventory <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </div>
+
+      <!-- Rent-to-Own -->
+      <div class="service-card reveal reveal-delay-3 rounded-2xl p-8 hover:border-brand/30" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-12 h-12 rounded-xl bg-brand/20 flex items-center justify-center mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-white text-xl mb-3">Rent-to-Own</h3>
+        <p class="text-white/60 leading-relaxed mb-5 text-sm">Start renting, build equity, and own the equipment outright. Ideal for growing contractors who want ownership without upfront capital.</p>
+        <ul class="space-y-2 mb-7">
+          <li class="flex items-center gap-2 text-sm text-white/70"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Flexible payment structure</li>
+          <li class="flex items-center gap-2 text-sm text-white/70"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Rental credits toward purchase</li>
+          <li class="flex items-center gap-2 text-sm text-white/70"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>No large upfront payment</li>
+        </ul>
+        <a href="#contact" class="inline-flex items-center gap-2 text-brand font-semibold text-sm hover:text-brand-light transition-colors">
+          Learn More <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-5xl mx-auto"></div>
+
+<!-- ══════════════════════════════════════════════════
+     FLEET
+══════════════════════════════════════════════════ -->
+<section id="fleet" class="py-24 bg-[#1C1917] relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 30% at 80% 20%, rgba(198,40,40,0.06) 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 reveal">
+      <div>
+        <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+          <span class="w-8 h-px bg-brand"></span>Our Equipment
+        </div>
+        <h2 class="font-display font-bold text-white text-4xl md:text-5xl" style="letter-spacing:-0.02em">The right machine<br/>for every lift.</h2>
+      </div>
+      <a href="#contact" class="inline-flex items-center gap-2 text-brand font-semibold text-sm hover:text-brand-light transition-colors self-start md:self-auto">
+        Request Custom Quote <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex gap-2 flex-wrap mb-10 reveal">
+      <button onclick="filterFleet('all')"         class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium" data-filter="all">All Equipment</button>
+      <button onclick="filterFleet('mobile')"      class="filter-btn px-4 py-2 rounded-lg text-sm font-medium" data-filter="mobile">Mobile Cranes</button>
+      <button onclick="filterFleet('crawler')"     class="filter-btn px-4 py-2 rounded-lg text-sm font-medium" data-filter="crawler">Crawler Cranes</button>
+      <button onclick="filterFleet('terrain')"     class="filter-btn px-4 py-2 rounded-lg text-sm font-medium" data-filter="terrain">All-Terrain</button>
+      <button onclick="filterFleet('telehandler')" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium" data-filter="telehandler">Telehandlers</button>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="fleet-grid">
+
+      <!-- Card helper pattern: accent stripe top, img placeholder, specs, CTA -->
+      <div class="fleet-card fleet-item reveal reveal-delay-1 rounded-2xl overflow-hidden" data-category="mobile">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1">
+          <img src="/equipment-ltm1100-dark.png" alt="Liebherr LTM 1100" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 left-3"><span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 bg-brand/10 text-brand">10t – 500t capacity</span>
+          <h3 class="font-display font-bold text-white text-lg mb-1">Liebherr LTM 1100</h3>
+          <p class="text-white/50 text-xs leading-relaxed mb-4">Versatile mobile crane, ideal for construction sites requiring frequent repositioning.</p>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Capacity</div><div class="font-bold text-white text-sm">100t</div></div>
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Boom</div><div class="font-bold text-white text-sm">60m</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fleet-card fleet-item reveal reveal-delay-2 rounded-2xl overflow-hidden" data-category="crawler">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1">
+          <img src="/equipment-manitowoc-dark.png" alt="Manitowoc 18000" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 left-3"><span class="bg-brand text-white text-xs font-bold px-2.5 py-1 rounded-full">On Hire</span></div>
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 bg-brand/10 text-brand">100t – 3,500t capacity</span>
+          <h3 class="font-display font-bold text-white text-lg mb-1">Manitowoc 18000</h3>
+          <p class="text-white/50 text-xs leading-relaxed mb-4">Maximum lift capacity with exceptional stability for heavy industrial projects.</p>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Capacity</div><div class="font-bold text-white text-sm">440t</div></div>
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Boom</div><div class="font-bold text-white text-sm">115m</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fleet-card fleet-item reveal reveal-delay-3 rounded-2xl overflow-hidden" data-category="terrain">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1">
+          <img src="/equipment-grove-dark.png" alt="Grove GMK5150L" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 left-3"><span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 bg-brand/10 text-brand">50t – 1,200t capacity</span>
+          <h3 class="font-display font-bold text-white text-lg mb-1">Grove GMK5150L</h3>
+          <p class="text-white/50 text-xs leading-relaxed mb-4">High-capacity lifts on challenging terrain for oil &amp; gas and infrastructure projects.</p>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Capacity</div><div class="font-bold text-white text-sm">150t</div></div>
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Boom</div><div class="font-bold text-white text-sm">68m</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fleet-card fleet-item reveal reveal-delay-1 rounded-2xl overflow-hidden" data-category="mobile">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1">
+          <img src="/equipment-tadano-dark.png" alt="Tadano ATF 50G-3" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 left-3"><span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 bg-brand/10 text-brand">10t – 500t capacity</span>
+          <h3 class="font-display font-bold text-white text-lg mb-1">Tadano ATF 50G-3</h3>
+          <p class="text-white/50 text-xs leading-relaxed mb-4">Versatile all-terrain mobile crane, fast to mobilize and ideal for tight sites.</p>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Capacity</div><div class="font-bold text-white text-sm">50t</div></div>
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Boom</div><div class="font-bold text-white text-sm">42m</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fleet-card fleet-item reveal reveal-delay-2 rounded-2xl overflow-hidden" data-category="telehandler">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1">
+          <img src="/equipment-jlg-dark.png" alt="JLG 1644" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 left-3"><span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Available</span></div>
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 bg-brand/10 text-brand">2t – 35t capacity</span>
+          <h3 class="font-display font-bold text-white text-lg mb-1">JLG 1644</h3>
+          <p class="text-white/50 text-xs leading-relaxed mb-4">Telehandler for warehousing, manufacturing, and rough-terrain site logistics.</p>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Capacity</div><div class="font-bold text-white text-sm">7.25t</div></div>
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Lift Height</div><div class="font-bold text-white text-sm">16.8m</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fleet-card fleet-item reveal reveal-delay-3 rounded-2xl overflow-hidden" data-category="crawler">
+        <div class="relative overflow-hidden" style="aspect-ratio:1/1">
+          <img src="/equipment-lr11000-dark.png" alt="Liebherr LR 11000" class="w-full h-full object-cover" />
+          <div class="absolute bottom-3 left-3"><span class="bg-blue-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Coming Soon</span></div>
+        </div>
+        <div class="p-5">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 bg-brand/10 text-brand">100t – 3,500t capacity</span>
+          <h3 class="font-display font-bold text-white text-lg mb-1">Liebherr LR 11000</h3>
+          <p class="text-white/50 text-xs leading-relaxed mb-4">World-class 1,000t+ crawler crane for megaprojects and ultra-heavy industrial lifts.</p>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Capacity</div><div class="font-bold text-white text-sm">1,000t</div></div>
+            <div class="rounded-lg p-2.5" style="background:rgba(255,255,255,0.06);"><div class="text-xs text-white/40 mb-0.5">Boom</div><div class="font-bold text-white text-sm">144m</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Don't see what you need strip -->
+    <div class="reveal reveal-delay-3 mt-8 rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(20px); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+      <div>
+        <p class="font-display font-semibold text-white text-lg mb-1">Don't see what you need?</p>
+        <p class="text-white/50 text-sm">We source specialized equipment globally. Tell us your specs and we'll find it.</p>
+      </div>
+      <a href="#contact" class="flex-shrink-0 bg-brand hover:bg-brand-dark text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 text-sm whitespace-nowrap">
+        Request a Custom Quote
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-5xl mx-auto"></div>
+
+<!-- ══════════════════════════════════════════════════
+     GLOBAL REACH
+══════════════════════════════════════════════════ -->
+<section id="projects" class="py-24 bg-[#1C1917] relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+          <span class="w-8 h-px bg-brand"></span>Global Reach
+        </div>
+        <h2 class="font-display font-bold text-white text-4xl md:text-5xl mb-6 leading-tight" style="letter-spacing:-0.02em">
+          Operating Across<br/><span class="text-brand">Two Continents</span>
+        </h2>
+        <p class="text-white/60 text-lg leading-relaxed mb-8">Lift International delivers heavy lifting solutions to the oil &amp; gas, construction, and industrial sectors across South America and Africa.</p>
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="rounded-xl p-4" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.1); box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);">
+            <div class="text-brand font-display font-bold text-xl mb-1">South America</div>
+            <div class="text-white/50 text-sm">Brazil, Colombia, Peru,<br/>Argentina, Chile</div>
+          </div>
+          <div class="rounded-xl p-4" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.1); box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);">
+            <div class="text-brand font-display font-bold text-xl mb-1">Africa</div>
+            <div class="text-white/50 text-sm">Nigeria, Angola, South Africa,<br/>Ghana, Kenya</div>
+          </div>
+        </div>
+        <a href="#contact" class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 shadow-md">
+          Discuss Your Project
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="rounded-2xl p-6" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+          <div style="position:relative; width:100%; aspect-ratio:1/1; max-width:500px; margin:0 auto;">
+            <canvas id="cobe-globe" style="width:100%; height:100%; cursor:grab; opacity:0; transition:opacity 0.5s;"></canvas>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <div class="flex-1 text-center py-3 rounded-xl bg-brand/10 border border-brand/20">
+              <div class="text-brand font-display font-bold text-xl">12</div><div class="text-white/40 text-xs">Active Projects</div>
+            </div>
+            <div class="flex-1 text-center py-3 rounded-xl bg-brand/10 border border-brand/20">
+              <div class="text-brand font-display font-bold text-xl">7</div><div class="text-white/40 text-xs">Countries Active</div>
+            </div>
+            <div class="flex-1 text-center py-3 rounded-xl bg-brand/10 border border-brand/20">
+              <div class="text-brand font-display font-bold text-xl">24/7</div><div class="text-white/40 text-xs">Support</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-5xl mx-auto"></div>
+
+<!-- ══════════════════════════════════════════════════
+     WHY LIFT INTERNATIONAL
+══════════════════════════════════════════════════ -->
+<section id="about" class="py-24 bg-[#1C1917] relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 40% at 20% 80%, rgba(198,40,40,0.06) 0%, transparent 70%);"></div>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+    <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+      <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+        <span class="w-8 h-px bg-brand"></span>Why Lift International<span class="w-8 h-px bg-brand"></span>
+      </div>
+      <h2 class="font-display font-bold text-white text-4xl md:text-5xl mb-4" style="letter-spacing:-0.02em">Everything your project needs, in one place.</h2>
+      <p class="text-stone-400 text-lg">We built Lift International to be the heavy equipment partner we always wished existed.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="group reveal reveal-delay-1 p-7 rounded-2xl hover:border-brand/30 hover:-translate-y-1.5 transition-all duration-300" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-11 h-11 bg-brand/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand transition-colors duration-300">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" class="group-hover:stroke-white transition-colors duration-300"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2 leading-snug">Quotes Under One Hour</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Submit your specs and receive a detailed, competitive quote within 60 minutes — so your schedule stays on track.</p>
+      </div>
+      <div class="group reveal reveal-delay-2 p-7 rounded-2xl hover:border-brand/30 hover:-translate-y-1.5 transition-all duration-300" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-11 h-11 bg-brand/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand transition-colors duration-300">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" class="group-hover:stroke-white transition-colors duration-300"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2 leading-snug">Worldwide Delivery</h3>
+        <p class="text-white/50 text-sm leading-relaxed">We ship and operate cranes across South America, Africa, the Caribbean, and beyond. Your site, our machine.</p>
+      </div>
+      <div class="group reveal reveal-delay-3 p-7 rounded-2xl hover:border-brand/30 hover:-translate-y-1.5 transition-all duration-300" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-11 h-11 bg-brand/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand transition-colors duration-300">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" class="group-hover:stroke-white transition-colors duration-300"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2 leading-snug">Rent-to-Own Programs</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Convert your rental payments into real equity with flexible rent-purchase agreements tailored to your budget.</p>
+      </div>
+      <div class="group reveal reveal-delay-1 p-7 rounded-2xl hover:border-brand/30 hover:-translate-y-1.5 transition-all duration-300" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-11 h-11 bg-brand/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand transition-colors duration-300">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" class="group-hover:stroke-white transition-colors duration-300"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2 leading-snug">Certified Operators</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Professional, safety-certified crane operators are available to accompany any rental, anywhere in the world.</p>
+      </div>
+      <div class="group reveal reveal-delay-2 p-7 rounded-2xl hover:border-brand/30 hover:-translate-y-1.5 transition-all duration-300" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-11 h-11 bg-brand/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand transition-colors duration-300">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" class="group-hover:stroke-white transition-colors duration-300"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2 leading-snug">Below-Market Pricing</h3>
+        <p class="text-white/50 text-sm leading-relaxed">Our rates consistently beat bank financing and larger competitors — without cutting corners on quality or service.</p>
+      </div>
+      <div class="group reveal reveal-delay-3 p-7 rounded-2xl hover:border-brand/30 hover:-translate-y-1.5 transition-all duration-300" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+        <div class="w-11 h-11 bg-brand/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand transition-colors duration-300">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2" class="group-hover:stroke-white transition-colors duration-300"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8Z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3 class="font-display font-semibold text-white text-[17px] mb-2 leading-snug">Full Equipment Range</h3>
+        <p class="text-white/50 text-sm leading-relaxed">From forklifts and telehandlers to high-capacity all-terrain and crawler cranes — one supplier for every lift.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-5xl mx-auto"></div>
+
+<!-- ══════════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════════ -->
+<section class="py-24 lg:py-32 bg-[#1C1917] overflow-hidden relative">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-14 reveal">
+      <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+        <span class="w-8 h-px bg-brand"></span>Client Stories<span class="w-8 h-px bg-brand"></span>
+      </div>
+      <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">Trusted on job sites worldwide.</h2>
+      <p class="text-stone-400 text-lg max-w-md mx-auto">From Caribbean islands to African megaprojects — clients rely on us when it matters most.</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div class="reveal reveal-delay-1 p-8">
+        <div class="flex gap-1 mb-5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="text-stone-300 text-[15px] leading-relaxed mb-7">"Their rental rates are comparable to the largest companies in the industry, but at a fraction of the cost. The value is genuinely unbeatable."</p>
+        <div class="flex items-center gap-3">
+          <img src="reviewer-neevash.jpg" alt="Neevash Singh" class="w-10 h-10 rounded-full object-cover">
+          <div><p class="text-white font-semibold text-sm">Neevash Singh</p><p class="text-stone-500 text-xs mt-0.5">Project Manager, Infrastructure Division</p></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2 p-8">
+        <div class="flex gap-1 mb-5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="text-stone-300 text-[15px] leading-relaxed mb-7">"Personal service is what sets Lift International apart. I had a detailed quote in under 30 minutes and the rates beat every competitor I contacted."</p>
+        <div class="flex items-center gap-3">
+          <img src="reviewer-john.jpg" alt="John Harper" class="w-10 h-10 rounded-full object-cover">
+          <div><p class="text-white font-semibold text-sm">John Harper</p><p class="text-stone-500 text-xs mt-0.5">Site Superintendent, Horizon Build</p></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-3 p-8">
+        <div class="flex gap-1 mb-5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="text-stone-300 text-[15px] leading-relaxed mb-7">"They delivered a crane to Guadeloupe on very short notice. I genuinely didn't think it was possible. They made it happen without a single hiccup."</p>
+        <div class="flex items-center gap-3">
+          <img src="reviewer-mike.jpg" alt="Mike Seals" class="w-10 h-10 rounded-full object-cover">
+          <div><p class="text-white font-semibold text-sm">Mike Seals</p><p class="text-stone-500 text-xs mt-0.5">Operations Director, Caribbean Projects</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     CONTACT + CTA BACKGROUND WRAPPER
+══════════════════════════════════════════════════ -->
+<div id="contact-cta-bg" style="position:relative; background:#1C1917;">
+  <video autoplay muted loop playsinline style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.3;"><source src="/hf_20260317_225105_6d3d1bee-9d0a-4102-ac30-6f345c9df97c.mp4" type="video/mp4"></video>
+  <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(28,25,23,1) 0%, rgba(28,25,23,0.6) 15%, rgba(28,25,23,0.4) 50%, rgba(28,25,23,0.6) 85%, rgba(28,25,23,1) 100%);"></div>
+
+<!-- ══════════════════════════════════════════════════
+     CONTACT / RFQ
+══════════════════════════════════════════════════ -->
+<section id="contact" class="py-24 lg:py-32" style="position:relative; z-index:1;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Info -->
+      <div class="reveal">
+        <div class="inline-flex items-center gap-3 text-brand text-[11px] font-bold uppercase tracking-[0.18em] mb-4">
+          <span class="w-8 h-px bg-brand"></span>Get in Touch
+        </div>
+        <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight" style="letter-spacing:-0.02em">Ready to get your<br/>project lifting?</h2>
+        <p class="text-white/60 text-lg leading-relaxed mb-10">Tell us about your project — we'll respond with a detailed quote within one hour during business hours.</p>
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-brand/15 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17v-.08Z"/></svg>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-1">Phone</p>
+              <a href="tel:12898161956" class="text-white text-sm font-medium hover:text-brand transition-colors">1-289-816-1956</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-brand/15 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-1">Office</p>
+              <span class="text-white text-sm font-medium">4145 North Service Rd, Suite 200,<br/>Burlington, ON, Canada</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-brand/15 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-1">Hours</p>
+              <span class="text-white text-sm font-medium">Mon–Fri 8am–5pm · Sat 8am–2pm (Eastern)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="reveal reveal-delay-2">
+        <div class="rounded-3xl p-8 bg-white/[0.05] border border-white/[0.10]" style="backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);">
+          <!-- Steps -->
+          <div class="flex items-center gap-0 mb-8" id="step-indicator">
+            <div class="step-dot flex items-center gap-2" data-step="1">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold font-display step-circle" style="background:#C62828;color:#fff">1</div>
+              <span class="text-white text-xs font-medium hidden sm:block">Equipment</span>
+            </div>
+            <div class="flex-1 h-px mx-2 bg-white/15"></div>
+            <div class="step-dot flex items-center gap-2" data-step="2">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold font-display step-circle" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.45)">2</div>
+              <span class="text-white/45 text-xs font-medium hidden sm:block">Project</span>
+            </div>
+            <div class="flex-1 h-px mx-2 bg-white/15"></div>
+            <div class="step-dot flex items-center gap-2" data-step="3">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold font-display step-circle" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.45)">3</div>
+              <span class="text-white/45 text-xs font-medium hidden sm:block">Contact</span>
+            </div>
+            <div class="flex-1 h-px mx-2 bg-white/15"></div>
+            <div class="step-dot flex items-center gap-2" data-step="4">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold font-display step-circle" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.45)">4</div>
+              <span class="text-white/45 text-xs font-medium hidden sm:block">Confirm</span>
+            </div>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="form-step active" id="step-1">
+            <h3 class="font-display font-bold text-white text-lg mb-5">Equipment Requirements</h3>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div><label class="form-label">Equipment Type *</label>
+                <select class="form-input" id="eq-type"><option value="">Select type</option><option>Mobile Crane</option><option>Crawler Crane</option><option>All-Terrain Crane</option><option>Tower Crane</option><option>Telehandler</option><option>Forklift</option><option>Other</option></select></div>
+              <div><label class="form-label">Tonnage *</label>
+                <select class="form-input" id="eq-tonnage"><option value="">Select range</option><option>Under 25t</option><option>25t – 50t</option><option>50t – 100t</option><option>100t – 250t</option><option>250t – 500t</option><option>500t+</option></select></div>
+              <div><label class="form-label">Service *</label>
+                <select class="form-input" id="eq-service"><option value="">Rental or Purchase?</option><option>Bare Rental</option><option>Operated Rental</option><option>Purchase (new)</option><option>Purchase (used)</option><option>Rent-to-Own</option></select></div>
+              <div><label class="form-label">Quantity</label>
+                <input type="number" class="form-input" placeholder="1" id="eq-qty" min="1" value="1" /></div>
+            </div>
+            <div class="flex justify-end mt-6">
+              <button onclick="nextStep(2)" class="bg-brand hover:bg-brand-dark text-white font-semibold px-7 py-3 rounded-xl transition-all hover:-translate-y-0.5">Next →</button>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="form-step" id="step-2">
+            <h3 class="font-display font-bold text-white text-lg mb-5">Project Details</h3>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div><label class="form-label">Country *</label>
+                <select class="form-input" id="proj-country"><option value="">Select country</option><optgroup label="South America"><option>Brazil</option><option>Colombia</option><option>Peru</option><option>Argentina</option><option>Chile</option></optgroup><optgroup label="Africa"><option>Nigeria</option><option>Angola</option><option>South Africa</option><option>Ghana</option><option>Kenya</option></optgroup><optgroup label="Other"><option>Other Region</option></optgroup></select></div>
+              <div><label class="form-label">City / Site</label>
+                <input type="text" class="form-input" placeholder="e.g. Lagos..." id="proj-city" /></div>
+              <div><label class="form-label">Start Date *</label>
+                <input type="date" class="form-input" id="proj-start" /></div>
+              <div><label class="form-label">Duration *</label>
+                <select class="form-input" id="proj-duration"><option value="">Select duration</option><option>1–7 days</option><option>1–4 weeks</option><option>1–3 months</option><option>3–6 months</option><option>6–12 months</option><option>1 year+</option></select></div>
+            </div>
+            <div class="mt-4"><label class="form-label">Project Description</label>
+              <textarea class="form-input" rows="3" placeholder="Brief description of requirements..." id="proj-desc"></textarea></div>
+            <div class="flex justify-between mt-6">
+              <button onclick="nextStep(1)" class="text-white/50 hover:text-white text-sm font-medium transition-colors px-3 py-3">← Back</button>
+              <button onclick="nextStep(3)" class="bg-brand hover:bg-brand-dark text-white font-semibold px-7 py-3 rounded-xl transition-all hover:-translate-y-0.5">Next →</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="form-step" id="step-3">
+            <h3 class="font-display font-bold text-white text-lg mb-5">Contact Information</h3>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div><label class="form-label">Full Name *</label><input type="text" class="form-input" placeholder="Alex Johnson" id="contact-name" /></div>
+              <div><label class="form-label">Company *</label><input type="text" class="form-input" placeholder="Company name" id="contact-company" /></div>
+              <div><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="alex@company.com" id="contact-email" /></div>
+              <div><label class="form-label">Phone / WhatsApp *</label><input type="tel" class="form-input" placeholder="+1 (234) 567-890" id="contact-phone" /></div>
+            </div>
+            <div class="flex justify-between mt-6">
+              <button onclick="nextStep(2)" class="text-white/50 hover:text-white text-sm font-medium transition-colors px-3 py-3">← Back</button>
+              <button onclick="nextStep(4)" class="bg-brand hover:bg-brand-dark text-white font-semibold px-7 py-3 rounded-xl transition-all hover:-translate-y-0.5">Review →</button>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="form-step" id="step-4">
+            <h3 class="font-display font-bold text-white text-lg mb-5">Review &amp; Submit</h3>
+            <div class="rounded-xl p-4 mb-5 border border-brand/25 bg-brand/8">
+              <div id="summary" class="grid sm:grid-cols-2 gap-3 text-sm"></div>
+            </div>
+            <label class="flex items-start gap-3 mb-5 cursor-pointer">
+              <input type="checkbox" id="consent" class="mt-0.5 accent-brand" />
+              <span class="text-white/55 text-sm leading-relaxed">I agree to be contacted by Lift International regarding my quote request.</span>
+            </label>
+            <div class="flex justify-between">
+              <button onclick="nextStep(3)" class="text-white/50 hover:text-white text-sm font-medium transition-colors px-3 py-3">← Back</button>
+              <button onclick="submitForm()" class="bg-brand hover:bg-brand-dark text-white font-bold px-10 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 shadow-md">Submit Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     BOTTOM CTA
+══════════════════════════════════════════════════ -->
+<section class="relative py-24 lg:py-36 overflow-hidden" style="position:relative; z-index:1;">
+  <div class="relative max-w-4xl mx-auto px-6 lg:px-8 text-center reveal">
+    <div class="inline-flex items-center gap-2 bg-white/20 text-white text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-7">
+      <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>Available Worldwide
+    </div>
+    <h2 class="font-display font-bold text-white mb-5 leading-tight" style="font-size:clamp(2.2rem,5vw,4rem)">
+      Ready to lift your<br/>next project?
+    </h2>
+    <p class="text-white/75 text-lg lg:text-xl mb-10 max-w-lg mx-auto">Get a detailed, competitive quote within the hour. No commitment required.</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#contact" class="bg-white text-brand font-bold px-9 py-4 rounded-xl hover:bg-stone-50 flex items-center gap-2.5 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 text-[15px]">
+        Get a Free Quote
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a href="tel:12898161956" class="border-2 border-white/40 text-white font-semibold px-9 py-4 rounded-xl hover:bg-white/10 flex items-center gap-2.5 transition-all duration-200 text-[15px]">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17v-.08Z"/></svg>
+        Call Us Now
+      </a>
+    </div>
+  </div>
+</section>
+
+</div><!-- end contact-cta-bg wrapper -->
+
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════ -->
+<footer style="background:#1C1917;color:#78716C;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+    <div class="lg:col-span-2">
+      <div class="font-display font-extrabold text-white text-xl tracking-tight mb-5">LIFT <span class="font-semibold">INTERNATIONAL</span></div>
+      <p class="text-stone-500 text-sm leading-relaxed mb-6 max-w-[260px]">Moving the world one lift at a time. Premium crane rentals, sales, and operators serving projects worldwide.</p>
+      <div class="flex gap-2.5">
+        <a href="https://instagram.com/lift.international" target="_blank" class="w-9 h-9 bg-stone-800 hover:bg-brand rounded-lg flex items-center justify-center transition-colors" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="w-9 h-9 bg-stone-800 hover:bg-brand rounded-lg flex items-center justify-center transition-colors" aria-label="LinkedIn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-stone-300 text-[11px] uppercase tracking-[0.18em] mb-5">Services</h4>
+      <ul class="space-y-3">
+        <li><a href="#services" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Crane Rentals</a></li>
+        <li><a href="#services" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Crane Sales</a></li>
+        <li><a href="#services" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Rent-to-Own</a></li>
+        <li><a href="#fleet"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Equipment Supply</a></li>
+        <li><a href="#contact"  class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Certified Operators</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-stone-300 text-[11px] uppercase tracking-[0.18em] mb-5">Company</h4>
+      <ul class="space-y-3">
+        <li><a href="#about"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">About Us</a></li>
+        <li><a href="#fleet"    class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Our Fleet</a></li>
+        <li><a href="#projects" class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Projects</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-stone-300 text-[11px] uppercase tracking-[0.18em] mb-5">Support</h4>
+      <ul class="space-y-3">
+        <li><a href="#contact"          class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Contact Us</a></li>
+        <li><a href="#contact"          class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Get a Quote</a></li>
+        <li><a href="/faqs.html"        class="text-stone-500 hover:text-stone-300 text-sm transition-colors">FAQs</a></li>
+        <li><a href="/safety.html"      class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Safety Standards</a></li>
+        <li><a href="/terms.html"       class="text-stone-500 hover:text-stone-300 text-sm transition-colors">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(120,113,108,0.25)" class="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-stone-600 text-xs">© 2026 Lift International Inc. All rights reserved.</p>
+    <div class="flex items-center gap-5">
+      <a href="/privacy.html" class="text-stone-600 hover:text-stone-400 text-xs transition-colors">Privacy Policy</a>
+      <a href="/terms.html"   class="text-stone-600 hover:text-stone-400 text-xs transition-colors">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating mobile CTA -->
+<div id="floating-cta" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+  <a href="#contact" class="bg-brand text-white font-bold px-7 py-3 rounded-full shadow-xl text-sm flex items-center gap-2">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Get a Free Quote
+  </a>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+// ── PROGRESS BAR ──
+const progressBar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  progressBar.style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+// ── NAVBAR ──
+const navbar = document.getElementById('navbar');
+const logoEl = document.getElementById('logo-el');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY > 24;
+  navbar.classList.toggle('scrolled', scrolled);
+  logoEl.style.color = '#fff';
+}, { passive: true });
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const open  = document.getElementById('ham-open');
+  const close = document.getElementById('ham-close');
+  const isOpen = !menu.classList.contains('hidden');
+  menu.classList.toggle('hidden', isOpen);
+  open.classList.toggle('hidden', !isOpen);
+  close.classList.toggle('hidden', isOpen);
+}
+
+
+// ── REVEAL ON SCROLL ──
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    // counter animation?
+    const num = entry.target.querySelector('.count-num');
+    if (num && !num.dataset.done) {
+      animateCount(num, parseInt(entry.target.dataset.count || '0'));
+      num.dataset.done = '1';
+    }
+    io.unobserve(entry.target);
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+// ── COUNT-UP ──
+function animateCount(el, target) {
+  let start;
+  const duration = 1800;
+  const tick = (ts) => {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(eased * target);
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(tick);
+}
+
+// ── FLEET FILTER ──
+function filterFleet(cat) {
+  document.querySelectorAll('.filter-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.filter === cat));
+  document.querySelectorAll('.fleet-item').forEach(item =>
+    item.classList.toggle('hidden', cat !== 'all' && item.dataset.category !== cat));
+}
+
+// ── RFQ MULTI-STEP ──
+function nextStep(step) {
+  document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+  document.getElementById('step-' + step).classList.add('active');
+
+  document.querySelectorAll('.step-dot').forEach(dot => {
+    const s = parseInt(dot.dataset.step);
+    const circle = dot.querySelector('.step-circle');
+    const label  = dot.querySelector('span');
+    if (s < step) {
+      circle.style.background = 'rgba(198,40,40,0.3)';
+      circle.style.color      = '#C62828';
+      circle.innerHTML        = '✓';
+    } else if (s === step) {
+      circle.style.background = '#C62828';
+      circle.style.color      = '#fff';
+      circle.innerHTML        = s;
+      if (label) { label.style.color = 'rgba(255,255,255,0.9)'; }
+    } else {
+      circle.style.background = 'rgba(255,255,255,0.10)';
+      circle.style.color      = 'rgba(255,255,255,0.45)';
+      circle.innerHTML        = s;
+      if (label) { label.style.color = 'rgba(255,255,255,0.45)'; }
+    }
+  });
+
+  if (step === 4) {
+    const fields = [
+      ['Equipment', document.getElementById('eq-type')?.value],
+      ['Tonnage',   document.getElementById('eq-tonnage')?.value],
+      ['Service',   document.getElementById('eq-service')?.value],
+      ['Country',   document.getElementById('proj-country')?.value],
+      ['Start',     document.getElementById('proj-start')?.value],
+      ['Duration',  document.getElementById('proj-duration')?.value],
+      ['Name',      document.getElementById('contact-name')?.value],
+      ['Company',   document.getElementById('contact-company')?.value],
+      ['Email',     document.getElementById('contact-email')?.value],
+      ['Phone',     document.getElementById('contact-phone')?.value],
+    ];
+    document.getElementById('summary').innerHTML =
+      fields.filter(([,v]) => v).map(([k, v]) =>
+        `<div><div style="color:rgba(255,255,255,0.4);font-size:11px">${k}</div>
+              <div style="color:#fff;font-size:13px;font-weight:500;margin-top:2px">${v}</div></div>`
+      ).join('');
+  }
+}
+
+function submitForm() {
+  if (!document.getElementById('consent').checked) {
+    alert('Please confirm your consent to be contacted.');
+    return;
+  }
+  document.getElementById('step-4').innerHTML = `
+    <div class="text-center py-8">
+      <div style="width:64px;height:64px;border-radius:50%;border:2px solid #C62828;background:rgba(198,40,40,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C62828" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h3 style="font-family:Syne,sans-serif;font-weight:700;color:#fff;font-size:1.5rem;margin-bottom:8px">Request Submitted!</h3>
+      <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6">Thank you — your quote request has been received.</p>
+      <p style="color:#C62828;font-size:14px;font-weight:600;margin-top:6px">Our team will contact you within 1 hour during business hours.</p>
+    </div>`;
+  document.querySelectorAll('.step-dot .step-circle').forEach(c => {
+    c.style.background = 'rgba(198,40,40,0.3)';
+    c.style.color = '#C62828';
+    c.innerHTML = '✓';
+  });
+}
+</script>
+
+<!-- COBE Globe -->
+<script type="module">
+import createGlobe from 'https://cdn.jsdelivr.net/npm/cobe@0.6.5/+esm';
+(function() {
+  const canvas = document.getElementById('cobe-globe');
+  if (!canvas) return;
+
+  let phi = 0;
+  let width = 0;
+  let pointerInteracting = null;
+  let pointerMovement = 0;
+  let r = 0;
+
+  function onResize() {
+    width = canvas.offsetWidth;
+  }
+
+  canvas.addEventListener('pointerdown', function(e) {
+    pointerInteracting = e.clientX - pointerMovement;
+    canvas.style.cursor = 'grabbing';
+  });
+  canvas.addEventListener('pointerup', function() {
+    pointerInteracting = null;
+    canvas.style.cursor = 'grab';
+  });
+  canvas.addEventListener('pointerout', function() {
+    pointerInteracting = null;
+    canvas.style.cursor = 'grab';
+  });
+  canvas.addEventListener('mousemove', function(e) {
+    if (pointerInteracting !== null) {
+      var delta = e.clientX - pointerInteracting;
+      pointerMovement = delta;
+      r = delta / 200;
+    }
+  });
+  canvas.addEventListener('touchmove', function(e) {
+    if (e.touches[0] && pointerInteracting !== null) {
+      var delta = e.touches[0].clientX - pointerInteracting;
+      pointerMovement = delta;
+      r = delta / 200;
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  onResize();
+
+  var initGlobe = createGlobe.default || createGlobe;
+  var globe = initGlobe(canvas, {
+    width: width * 2,
+    height: width * 2,
+    devicePixelRatio: 2,
+    phi: 0,
+    theta: 0.15,
+    dark: 1,
+    diffuse: 0.6,
+    mapSamples: 36000,
+    mapBrightness: 2.5,
+    baseColor: [0.15, 0.12, 0.1],
+    markerColor: [198/255, 40/255, 40/255],
+    glowColor: [0.2, 0.1, 0.08],
+    markers: [
+      // South America
+      { location: [-23.5505, -46.6333], size: 0.1 },   // Brazil (São Paulo)
+      { location: [-15.7801, -47.9292], size: 0.07 },   // Brazil (Brasília)
+      { location: [4.7110, -74.0721], size: 0.08 },     // Colombia (Bogotá)
+      { location: [-12.0464, -77.0428], size: 0.07 },   // Peru (Lima)
+      { location: [-34.6037, -58.3816], size: 0.06 },   // Argentina (Buenos Aires)
+      { location: [-33.4489, -70.6693], size: 0.06 },   // Chile (Santiago)
+      // Africa
+      { location: [6.5244, 3.3792], size: 0.1 },        // Nigeria (Lagos)
+      { location: [-8.8390, 13.2894], size: 0.08 },     // Angola (Luanda)
+      { location: [-33.9249, 18.4241], size: 0.07 },    // South Africa (Cape Town)
+      { location: [5.6037, -0.1870], size: 0.06 },      // Ghana (Accra)
+      { location: [-1.2921, 36.8219], size: 0.06 },     // Kenya (Nairobi)
+    ],
+    onRender: function(state) {
+      if (!pointerInteracting) phi += 0.003;
+      state.phi = phi + r;
+      state.width = width * 2;
+      state.height = width * 2;
+    }
+  });
+
+  setTimeout(function() { canvas.style.opacity = '1'; }, 100);
+})();
+</script>
+</body>
+</html>

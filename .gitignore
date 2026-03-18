@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+
+# Large video files (too big for GitHub)
+public/hero.mp4
+downloads/Lift Int Vid 2.mp4
